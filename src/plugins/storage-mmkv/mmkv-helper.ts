@@ -1,0 +1,1 @@
+export const RX_STORAGE_NAME_DENOKV = 'mmkv';

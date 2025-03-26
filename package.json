@@ -482,6 +482,7 @@
     "mongodb": "6.15.0",
     "nats": "2.29.3",
     "oblivious-set": "1.4.0",
+    "react-native-mmkv": "^3.2.0",
     "reconnecting-websocket": "4.4.0",
     "simple-peer": "9.11.1",
     "util": "0.12.5",
