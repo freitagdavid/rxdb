@@ -4,7 +4,7 @@ import type { RxDocumentData } from "../../types/index.d.ts";
 export type MMKVSettings = {
     path?: string;
     batchSize?: number;
-    id?: string;
+    id: string;
     encryptionKey?: string;
     mode?: Mode;
     readOnly?: boolean;
