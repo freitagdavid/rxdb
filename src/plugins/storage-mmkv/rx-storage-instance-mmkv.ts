@@ -4,7 +4,7 @@ import type { MMKVSettings, MMKVStorageInternals } from "./mmkv-types";
 import type { RxStorageMMKV } from ".";
 import { getPrimaryFieldOfPrimaryKey } from "rxdb-old";
 import { MMKV } from "react-native-mmkv";
-import { flatClone } from "../utils";
+import { batchArray, ensureNotFalsy, flatClone } from "../utils";
 
 export class RxStorageInstanceMMKV<RxDocType> implements RxStorageInstance<
     RxDocType,
@@ -33,7 +33,24 @@ export class RxStorageInstanceMMKV<RxDocType> implements RxStorageInstance<
     };
 
     public bulkWrite(documentWrites: BulkWriteRow<RxDocType>[], context: string) {
-        
+        const kv = this.kv;
+        const primaryPath = this.primaryPath;
+        const ret: RxStorageBulkWriteResponse<RxDocType> = {
+            error: [],
+        }
+
+        const batches = batchArray(documentWrites, ensureNotFalsy(this.options.batchSize));
+
+        for (const writeBatch of batches) {
+            while (true) {
+                const writeBlockKey = kv.get([this.keySpace], this.kvOptions);
+                const docsInDB = new Map<string, RxDocumentData<RxDocType>>();
+
+                const readManyBatches = batchArray(writeBatch, 10);
+            }
+        }
+
+        return ret;
     }
 
     public findDocumentsById(ids: string[], withDeleted: boolean) {
