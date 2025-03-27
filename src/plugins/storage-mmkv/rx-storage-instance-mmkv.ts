@@ -1,9 +1,10 @@
-import { Subject } from "rxjs";
-import type { EventBulk, RxDocumentData, RxJsonSchema, RxStorageChangeEvent, RxStorageDefaultCheckpoint, RxStorageInstance, StringKeys } from "../../types";
+import { Subject, type Observable } from "rxjs";
+import type { BulkWriteRow, EventBulk, PreparedQuery, RxDocumentData, RxJsonSchema, RxStorageBulkWriteResponse, RxStorageChangeEvent, RxStorageDefaultCheckpoint, RxStorageInstance, RxStorageInstanceCreationParams, StringKeys } from "../../types";
 import type { MMKVSettings, MMKVStorageInternals } from "./mmkv-types";
 import type { RxStorageMMKV } from ".";
 import { getPrimaryFieldOfPrimaryKey } from "rxdb-old";
 import { MMKV } from "react-native-mmkv";
+import { flatClone } from "../utils";
 
 export class RxStorageInstanceMMKV<RxDocType> implements RxStorageInstance<
     RxDocType,
@@ -31,4 +32,49 @@ export class RxStorageInstanceMMKV<RxDocType> implements RxStorageInstance<
         this.kv = new MMKV(settings);
     };
 
+    public bulkWrite(documentWrites: BulkWriteRow<RxDocType>[], context: string) {
+        
     }
+
+    public findDocumentsById(ids: string[], withDeleted: boolean) {
+        
+    }
+
+    public query(preparedQuery: PreparedQuery<RxDocType>) {
+
+    }
+
+    public count(preparedQuery: PreparedQuery<RxDocType>) {
+
+    }
+
+    public getAttachmentData(documentId: string, attachmentId: string, digest: string) {
+        
+    }
+    
+    public getChangedDocumentsSince(limit: number, checkpoint?: RxStorageDefaultCheckpoint | undefined): Promise<{ documents: RxDocumentData<RxDocType>[]; checkpoint: RxStorageDefaultCheckpoint; }> {
+        
+    }
+
+    public changeStream(): Observable<EventBulk<RxStorageChangeEvent<RxDocType>, RxStorageDefaultCheckpoint>> {
+        
+    }
+
+    public cleanup(minimumDeletedTime: number): Promise<boolean> {
+        
+    }
+
+    close: () => Promise<void>;
+    remove(): Promise<void> {
+        
+    }
+}
+    
+export function createMMKVStorageInstance<RxDocType>(
+    storage: RxStorageMMKV,
+    params: RxStorageInstanceCreationParams<RxDocType, MMKVSettings>,
+    settings: MMKVSettings
+): RxStorageInstanceMMKV<RxDocType>{
+    settings = flatClone(settings);
+    if (!settings.mode) settings.mode = Mode.SingleProcess;
+}
